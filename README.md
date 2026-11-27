@@ -3,8 +3,7 @@
 Make the Zeebo console recognise more USB HID controllers (DualShock 4, 8BitDo, generic pads, and
 possibly more), and find out, with measurements, what it can and cannot do.
 
-Status: **requirements baseline, data collection and the portable core with its component tests (CT-001..010) are done; no BREW glue or UI yet.** Nothing here has been tested
-on a real console. See `ROADMAP.md` for the plan and `docs/QUICK-WINS.md` for what can be done first.
+Status: **requirements baseline, data collection and the portable core with component tests (CT-001..010) are done. The BREW probe applet also builds and boots in zeebx: it lists the emulated pad, shows its card, polls events, and reports the raw-interface alias.** This is emulator evidence only; it has not been tested on a real console, and the raw-interface alias is an emulator stub, not proof of raw HID access. See `docs/IMPLEMENTATION.md` for measured capabilities and gaps, `ROADMAP.md` for the plan, and `docs/QUICK-WINS.md` for what can be done first.
 
 ## The problem in one paragraph
 

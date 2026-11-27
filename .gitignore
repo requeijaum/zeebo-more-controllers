@@ -1,0 +1,10 @@
+# third-party material that is not ours to redistribute (see data/SOURCES.md)
+data/specs/*
+!data/specs/SOURCES.md
+!data/specs/.gitignore
+data/usb4maple-firmware/
+data/dreamcast-talk-t17404/posts.json
+# build output and caches
+build/
+__pycache__/
+*.pyc

@@ -18,7 +18,7 @@ emulator (assumption A-6), not about the console.
 |---|---|---|---|
 | CT-001 | Push 300 events into the ring of 256. | Last 256 kept in order; dropped = 44; no allocation after init (allocation counter). | IM-001, LQ-010 |
 | CT-002 | Add nine devices to the table of eight. | Eight entries, an OVERFLOW marker, no overwrite of entry 0. | IM-002 |
-| CT-003 | Feed the classifier four observation sets: buttons only, position only, both, none. | Returns DPAD_BUTTONS, POSITION_AXIS, BOTH, NONE respectively; same result on repeat. | IM-003, LF-008 |
+| CT-003 | Feed the classifier observation sets: buttons only, position only, both, none, and partial ones (2 of 4 buttons, 4 buttons with 2 position directions, 3 position directions). | Returns DPAD_BUTTONS, POSITION_AXIS, BOTH, NONE, and PARTIAL for the partial sets; same result on repeat. | IM-003, LF-008 |
 | CT-004 | Format a golden event list, a 200-character value and a flood past 64 KB. | Output equals the golden file; lines at most 160 characters; the file ends with the truncation marker at 64 KB. | IM-004, LF-012, LF-014, LQ-009, HZ-4 |
 | CT-005 | Hex dump of lengths 0, 1, 16, 17, 4096. | Equal to the golden text for each length. | IM-005, LF-010 |
 | CT-006 | Inject an error code into every field source. | No field prints a number; each prints ERR(code). | IM-006, LQ-007 |
@@ -27,7 +27,7 @@ emulator (assumption A-6), not about the console.
 | CT-009 | Drive the adapter with fakes returning each documented error, a dropped-events flag, and a rumble start. | ERR(code) shown; the indicator appears; rumble stops by 1.1 s and a second press is ignored. | IM-007, LF-007, LF-011, TR-009, HZ-2 |
 | CT-010 | Probe raw access with a fake that has the interface and one that returns NULL; probe twice. | AVAILABLE and NOT_AVAILABLE(code); QueryInterface called once per device. | IM-008, LF-009, TR-005, TR-009 |
 
-Command (once code exists): `make -C ports/zhp test SAN=1`. Exit 0 required; the sanitizer log must be empty.
+Command: `make test` (ASan and UBSan on; `SAN=0` turns them off). Exit 0 required; the sanitizer log must be empty. `make check-portable` greps the portable sources for allocation, stdio and BREW headers.
 
 ## 2. Integration tests (IT) — cross-build and emulator
 
@@ -96,7 +96,7 @@ result against each pass criterion, and the files kept. One variable per run.
 
 `tools/check_requirements.py` checks that every requirement has a method, an acceptance criterion and
 existing tests, that every test verifies an existing requirement, and that every need and every logical
-requirement is covered. Nothing in this plan has been run: no code exists yet.
+requirement is covered. Run so far: CT-001..010 (host, sanitizers) and the traceability audit. Nothing else in this plan has been run.
 
 | Item | Unblocked by |
 |---|---|

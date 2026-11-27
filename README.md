@@ -3,7 +3,7 @@
 Make the Zeebo console recognise more USB HID controllers (DualShock 4, 8BitDo, generic pads, and
 possibly more), and find out, with measurements, what it can and cannot do.
 
-Status: **requirements baseline and data collection done; no code yet.** Nothing here has been tested
+Status: **requirements baseline, data collection and the portable core with its component tests (CT-001..010) are done; no BREW glue or UI yet.** Nothing here has been tested
 on a real console. See `ROADMAP.md` for the plan and `docs/QUICK-WINS.md` for what can be done first.
 
 ## The problem in one paragraph
@@ -33,6 +33,8 @@ gates G0..G5 with kill criteria), `ROADMAP.md`.
 |---|---|
 | `docs/REQUIREMENTS.md` | Needs, logical, technology and implementation requirements, hazards, assumptions, evidence annex. |
 | `docs/TEST-PLAN.md` | Component (CT), integration (IT), system (ST) and acceptance (AT) tests; gates. |
+| `docs/IMPLEMENTATION.md` | What is built, what it traces to, what is not built yet. |
+| `src/`, `tests/`, `Makefile` | Portable C core (`core`, `fs`, `hidport`) and its component tests: `make test`. |
 | `docs/QUICK-WINS.md` | Ranked low-effort items with evidence. |
 | `docs/USB-HID-READING-GUIDE.md` | Where to read what in the USB and HID specifications (page numbers verified). |
 | `ROADMAP.md` | Phases mapped to gates, effort, kill conditions. |

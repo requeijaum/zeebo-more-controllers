@@ -18,13 +18,13 @@ repository. Exit: each item's verification command passes.
 
 Kill: none.
 
-## Phase 2 — Core and component tests · G0 · ~3 sessions
+## Phase 2 — Core and component tests · G0 · ~3 sessions · **done on the host (G0 met)**
 
 Pure-C core (event ring, device table, directional-pad classifier, log formatter, hex dump, path
 allowlist) with fakes for IHID, IHIDDevice and the raw interface. Start the adapter from the existing
 IHID code in `zsdk-src/src/platform/zeebo/zeebo_input.cpp` instead of writing it again.
 
-Exit: CT-001..010 pass under ASan and UBSan; `tools/check_requirements.py` exits 0.
+Exit: CT-001..010 pass under ASan and UBSan; `tools/check_requirements.py` exits 0. Met: see `docs/IMPLEMENTATION.md`. The BREW adapter itself waits for phase 3.
 
 Kill: a requirement that cannot be given a method and a criterion is deleted.
 

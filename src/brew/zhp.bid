@@ -1,0 +1,6 @@
+#ifndef ZHP_BID
+#define ZHP_BID
+/* Class id of the ZeeHID Probe applet. Chosen next to the other homebrew ids used in this
+ * workspace (0x0BE07002 sa1hello, 0x0BE07003 sa1z); not registered anywhere. */
+#define AEECLSID_ZHP 0x0BE07100
+#endif

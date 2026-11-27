@@ -8,3 +8,5 @@ data/dreamcast-talk-t17404/posts.json
 build/
 __pycache__/
 *.pyc
+*.bmp
+*.frames.bmp

@@ -453,6 +453,16 @@ static void CT_010_raw_probe(void)
     zhp_raw_fmt(s, sizeof(s), r);
     CHECK(strcmp(s, "NOT_AVAILABLE(-3)") == 0);
 
+    /* QueryInterface handing back the device object: available, but flagged as a stub */
+    memset(&f, 0, sizeof(f));
+    f.raw_has = 2;
+    ops = ops_for(&f);
+    zhp_hid_init(&h, &ops);
+    r = zhp_hid_raw_probe(&h, 4);
+    CHECK(r.state == ZHP_RAW_AVAILABLE && r.alias == 1);
+    zhp_raw_fmt(s, sizeof(s), r);
+    CHECK(strcmp(s, "AVAILABLE(alias)") == 0);
+
     /* success but a NULL interface (TR-005): still not available, with its own code */
     memset(&f, 0, sizeof(f));
     f.raw_has = 0;

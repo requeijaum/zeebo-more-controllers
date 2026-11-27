@@ -41,9 +41,11 @@ zhp_raw_result zhp_hid_raw_probe(zhp_hid *h, int32_t handle)
         }
     }
     rc = h->ops->raw_query(h->ops->ctx, handle, &has);
+    r.alias = 0;
     if (rc == 0 && has) {
         r.state = ZHP_RAW_AVAILABLE;
         r.code = 0;
+        r.alias = has == 2 ? 1 : 0;
     } else {
         r.state = ZHP_RAW_NOT_AVAILABLE;
         r.code = rc != 0 ? rc : ZHP_E_NULL_IFACE;
@@ -74,6 +76,19 @@ int zhp_raw_fmt(char *out, size_t cap, zhp_raw_result r)
         return -1;
     }
     memcpy(out, head, n);
+    if (r.state == ZHP_RAW_AVAILABLE && r.alias) {
+        const char *tail = "(alias)";
+        size_t t = 0;
+        while (tail[t]) {
+            if (n + 1 >= cap) {
+                out[0] = '\0';
+                return -1;
+            }
+            out[n++] = tail[t++];
+        }
+        out[n] = '\0';
+        return (int)n;
+    }
     if (r.state == ZHP_RAW_NOT_AVAILABLE) {
         int k = zhp_val_fmt(num, sizeof(num), zhp_val_err(r.code), 0); /* "ERR(code)" */
         /* reuse the number between the parentheses */

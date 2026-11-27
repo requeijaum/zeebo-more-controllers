@@ -28,10 +28,14 @@ Exit: CT-001..010 pass under ASan and UBSan; `tools/check_requirements.py` exits
 
 Kill: a requirement that cannot be given a method and a criterion is deleted.
 
-## Phase 3 — Walking skeleton in the emulator · G1 (emulator half) · ~3 sessions
+## Phase 3 — Walking skeleton in the emulator · G1 (emulator half) · done
+The applet builds and runs in zeebx: it lists the pad, shows a card, polls events, probes the raw
+interface and fires a rumble pulse. See `docs/IMPLEMENTATION.md` for what was measured.
 
-A minimal applet that lists devices and draws text with OpenGL ES 1.0, built with the SA1/ZSDK
-toolchain, packaged as `.mod` and `.mif`, run in zeebx. Then the screens and the log.
+A minimal applet that lists devices and draws text, built with the ZSDK/BREW 4.0.2 toolchain,
+packaged as `.mod` and `.mif`, run in zeebx. Then the screens and the log.
+Deviation: the text is drawn with `IDISPLAY_DrawText` (built-in font), not OpenGL ES. The skeleton
+needs a screen, not a renderer; GL text needs its own font path and is the A-7 fallback in TR-003.
 
 Exit: IT-001..007 and ST-001..009 pass.
 

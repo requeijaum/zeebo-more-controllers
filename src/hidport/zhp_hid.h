@@ -24,7 +24,8 @@ typedef struct {
     int (*get_info)(void *ctx, int32_t handle, zhp_raw_info *out);
     int (*get_num_buttons)(void *ctx, int32_t handle, int32_t *n);
     int (*get_status)(void *ctx, int32_t handle, int32_t *status);
-    /* ask the device object for the raw HID interface; *has = 1 if a non-NULL interface came back */
+    /* ask the device object for the raw HID interface. *has: 0 = nothing, 1 = a separate interface,
+     * 2 = the call returned the device object itself, which is a stub, not a raw interface */
     int (*raw_query)(void *ctx, int32_t handle, int *has);
     int (*rumble)(void *ctx, int32_t handle, int32_t left, int32_t right);
     int (*next_button_event)(void *ctx, int32_t handle, int32_t *uid, int32_t *pressed,
@@ -43,7 +44,8 @@ typedef enum { ZHP_RAW_UNPROBED = 0, ZHP_RAW_AVAILABLE = 1, ZHP_RAW_NOT_AVAILABL
 
 typedef struct {
     zhp_raw_state state;
-    int32_t code; /* for NOT_AVAILABLE: the console's code, or ZHP_E_NULL_IFACE */
+    int32_t code;   /* for NOT_AVAILABLE: the console's code, or ZHP_E_NULL_IFACE */
+    uint8_t alias;  /* AVAILABLE, but QueryInterface handed back the device object: a stub */
 } zhp_raw_result;
 
 typedef struct {
@@ -58,7 +60,7 @@ typedef struct {
 
 void zhp_hid_init(zhp_hid *h, const zhp_hid_ops *ops);
 zhp_raw_result zhp_hid_raw_probe(zhp_hid *h, int32_t handle);
-/* "AVAILABLE" or "NOT_AVAILABLE(-3)" into out; returns the length or -1. */
+/* "AVAILABLE", "AVAILABLE(alias)" or "NOT_AVAILABLE(-3)"; returns the length or -1. */
 int zhp_raw_fmt(char *out, size_t cap, zhp_raw_result r);
 
 /* ---- LF-005, LF-007: read one button event into the ring. 1 = pushed, 0 = none, -1 = error. ---- */
